@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from escola.models import Aluno, Curso, Matricula
+from escola.models import *
 
 class AlunoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +15,12 @@ class MatriculaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Matricula
         exclude = [] # Mostra todos os campos, exceto os incluidos na lista
+
+class ListaMatriculasAlunoSerializer(serializers.ModelSerializer):
+    curso = serializers.ReadOnlyField(source='curso.descricao')
+    periodo = serializers.SerializerMethodField()
+    class Meta:
+        model = Matricula
+        fields = ['curso', 'periodo']
+    def get_periodo(self, obj):
+        return obj.get_periodo_display()
