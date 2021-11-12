@@ -12,12 +12,12 @@ admin.site.register(Aluno, Alunos)
 class Cursos(admin.ModelAdmin):
     list_display = 'id', 'codigo_curso', 'descricao'
     list_display_links = 'id', 'codigo_curso'
-    seatch_fields = ('codigo_curso')
+    search_fields = 'descricao',
 
 admin.site.register(Curso, Cursos)
 
 class Matriculas(admin.ModelAdmin):
     list_display = 'id', 'aluno', 'curso', 'periodo'
-    list_display_links = 'id',
+    list_display_links = 'id', 'aluno',
 
 admin.site.register(Matricula, Matriculas)
